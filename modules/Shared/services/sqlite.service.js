@@ -77,6 +77,13 @@ export class SqliteService {
         });
     }
 
+    delete(tableName, where: string) {
+        return new Promise((resolve, reject) => {
+            const query = "DELETE FROM " + tableName + " WHERE " + where;
+            this.executeSql(query).then((value) => resolve(value)).catch((error) => reject(error));
+        });
+    }
+
     executeSql(query, params = []) {
         return new Promise((resolve, reject) => {
             this.dbInstance.executeSql(query, params).then((value) => resolve(value)).catch((error) => reject(error));

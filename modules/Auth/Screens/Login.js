@@ -67,6 +67,23 @@ function Login(props) {
                 }
             ]);
 
+            await sqliteService.createTable('COUNTDOWN', [
+                {
+                    name: 'id',
+                    dataType: 'INTEGER',
+                    isNotNull: true,
+                    options: 'PRIMARY KEY AUTOINCREMENT'
+                },
+                {
+                    name: 'user_id',
+                    dataType: 'INTEGER'
+                },
+                {
+                    name: 'time',
+                    dataType: 'TEXT'
+                }
+            ]);
+
             const firstSetUsers = await utilService.storageGet('firstSetUsers');
 
 

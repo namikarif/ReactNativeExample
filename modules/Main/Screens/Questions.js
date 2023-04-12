@@ -10,7 +10,7 @@ import {SqliteService} from "../../Shared/services/sqlite.service";
 import utilService from "../../Shared/services/util.service";
 import buttonStyles from "../../../styles/ButtonStyles";
 import {UserDto} from "../../Shared/models/UserDto";
-import {addMinuteDate, getSeconds, makeDate} from "../../Shared/services/date.service";
+import {addMinuteDate, getSeconds} from "../../Shared/services/date.service";
 import CountDown from 'react-native-countdown-component';
 
 const sqliteService = new SqliteService();
@@ -28,19 +28,18 @@ export class Questions extends Component {
             userDetail: {},
             selectedAnswer: {},
             leftSeconds: 0,
+            countdown: {}
         }
     }
 
     async componentDidMount() {
-        const userDetail = await utilService.storageGetObject('userDetail');
-        const countdown = await utilService.storageGet('countdown');
+        const userDetail: UserDto = await utilService.storageGetObject('userDetail');
+        const countdown = await sqliteService.select('COUNTDOWN', '*', 'user_id = ' + userDetail.id);
         let leftSeconds = 0;
-        console.log('countdown : ', countdown);
-        if (countdown) {
-            leftSeconds = getSeconds(countdown);
-        }
 
-        console.log('leftSeconds : ', leftSeconds);
+        if (countdown && countdown[0]) {
+            leftSeconds = getSeconds(countdown[0].time);
+        }
 
         this.setState({
             userDetail: userDetail,
@@ -95,7 +94,8 @@ export class Questions extends Component {
 
                 const dateTime = addMinuteDate(now, 45);
 
-                await utilService.storageSet('countdown', dateTime);
+                await sqliteService.insert('COUNTDOWN', ['user_id', 'time'], [userDetail.id, dateTime], 1);
+
 
                 await utilService.storageSetObject('userDetail', userDetail);
 
@@ -129,7 +129,10 @@ export class Questions extends Component {
     }
 
     async countdownFinished() {
-        await utilService.storageRemove('countdown');
+        const userDetail: UserDto = this.state.userDetail;
+        const countdown = this.state.countdown;
+        const whereConditions = 'user_id = ' + userDetail.id + ' AND id = ' + countdown.id;
+        await sqliteService.delete('COUNTDOWN', whereConditions);
         this.setState({
             leftSeconds: 0,
             index: 0
@@ -199,7 +202,12 @@ export class Questions extends Component {
                         (this.state.leftSeconds > 0) && (
                             <View style={{paddingVertical: 10, paddingHorizontal: 12}}>
 
-                                <Text style={{fontSize: 18, color: colors.main, marginBottom: 20}}>{this.state.userDetail.name} səs vermədə iştirak etdiyiniz üçün təşəkkürlər. Bir sonraki səs vermə üçün gözləyin</Text>
+                                <Text style={{
+                                    fontSize: 18,
+                                    color: colors.main,
+                                    marginBottom: 20
+                                }}>{this.state.userDetail.name} səs vermədə iştirak etdiyiniz üçün təşəkkürlər. Bir sonraki
+                                    səs vermə üçün gözləyin</Text>
 
                                 <CountDown until={this.state.leftSeconds}
                                            onFinish={() => this.countdownFinished()}
