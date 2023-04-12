@@ -1,0 +1,324 @@
+[
+  {
+    "name": "Namiq",
+    "phone_number": "0997944604",
+    "school_id": 1,
+    "email": "namig.abdukerimov@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "İbrahim",
+    "phone_number": "0997944604",
+    "school_id": 1,
+    "email": "ibrahim@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Nicat",
+    "phone_number": "0997944604",
+    "school_id": 1,
+    "email": "nicat@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Abbas",
+    "phone_number": "0997944604",
+    "school_id": 1,
+    "email": "abbas@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Murad",
+    "phone_number": "0997944604",
+    "school_id": 1,
+    "email": "murad@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Anar",
+    "phone_number": "0997944604",
+    "school_id": 1,
+    "email": "anar@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Orxan",
+    "phone_number": "0997944604",
+    "school_id": 1,
+    "email": "orxan@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Ziyad",
+    "phone_number": "0997944604",
+    "school_id": 1,
+    "email": "ziyad@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Muhammed",
+    "phone_number": "0997944604",
+    "school_id": 1,
+    "email": "muhammed@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Sayat",
+    "phone_number": "0997944604",
+    "school_id": 1,
+    "email": "sayat@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Zeki",
+    "phone_number": "0997944604",
+    "school_id": 1,
+    "email": "zeki@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Atilla",
+    "phone_number": "0997944604",
+    "school_id": 1,
+    "email": "atilla@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "İslam",
+    "phone_number": "0997944604",
+    "school_id": 1,
+    "email": "islam@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Asif",
+    "phone_number": "0997944604",
+    "school_id": 1,
+    "email": "asif@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Fatih",
+    "phone_number": "0997944604",
+    "school_id": 1,
+    "email": "fatih@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Ceren",
+    "phone_number": "0997944604",
+    "school_id": 2,
+    "email": "ceren@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Elnare",
+    "phone_number": "0997944604",
+    "school_id": 2,
+    "email": "elnare@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Aynure",
+    "phone_number": "0997944604",
+    "school_id": 2,
+    "email": "aynure@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Sabit",
+    "phone_number": "0997944604",
+    "school_id": 2,
+    "email": "sabit@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Gunay",
+    "phone_number": "0997944604",
+    "school_id": 2,
+    "email": "gunay@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Cingiz",
+    "phone_number": "0997944604",
+    "school_id": 2,
+    "email": "cingiz@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Arif",
+    "phone_number": "0997944604",
+    "school_id": 2,
+    "email": "arif@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Natavan",
+    "phone_number": "0997944604",
+    "school_id": 2,
+    "email": "natavan@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Aysel",
+    "phone_number": "0997944604",
+    "school_id": 2,
+    "email": "aysel@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Hatice",
+    "phone_number": "0997944604",
+    "school_id": 2,
+    "email": "hatice@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Sema",
+    "phone_number": "0997944604",
+    "school_id": 2,
+    "email": "sema@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Nezaket",
+    "phone_number": "0997944604",
+    "school_id": 2,
+    "email": "nezaket@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Cavid",
+    "phone_number": "0997944604",
+    "school_id": 2,
+    "email": "cavid@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Ataxan",
+    "phone_number": "0997944604",
+    "school_id": 2,
+    "email": "ataxan@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Vusal",
+    "phone_number": "0997944604",
+    "school_id": 2,
+    "email": "vusal@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Mezahir",
+    "phone_number": "0997944604",
+    "school_id": 3,
+    "email": "mezahir@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Nizami",
+    "phone_number": "0997944604",
+    "school_id": 3,
+    "email": "nizami@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Ekber",
+    "phone_number": "0997944604",
+    "school_id": 3,
+    "email": "ekber@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Seymur",
+    "phone_number": "0997944604",
+    "school_id": 3,
+    "email": "seymur@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Subhan",
+    "phone_number": "0997944604",
+    "school_id": 3,
+    "email": "subhan@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Taleh",
+    "phone_number": "0997944604",
+    "school_id": 3,
+    "email": "taleh@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Akif",
+    "phone_number": "0997944604",
+    "school_id": 3,
+    "email": "akif@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Aqil",
+    "phone_number": "0997944604",
+    "school_id": 3,
+    "email": "aqil@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Araz",
+    "phone_number": "0997944604",
+    "school_id": 3,
+    "email": "araz@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Hasan",
+    "phone_number": "0997944604",
+    "school_id": 3,
+    "email": "hasan@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Hamit",
+    "phone_number": "0997944604",
+    "school_id": 3,
+    "email": "hamit@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Feqan",
+    "phone_number": "0997944604",
+    "school_id": 3,
+    "email": "feqan@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Faiq",
+    "phone_number": "0997944604",
+    "school_id": 3,
+    "email": "faiq@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Emrullah",
+    "phone_number": "0997944604",
+    "school_id": 3,
+    "email": "emrullah@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Elgiz",
+    "phone_number": "0997944604",
+    "school_id": 3,
+    "email": "elgiz@gmail.com",
+    "password": "1234"
+  },
+  {
+    "name": "Yusif",
+    "phone_number": "0997944604",
+    "school_id": 3,
+    "email": "yusif@gmail.com",
+    "password": "1234"
+  }
+]

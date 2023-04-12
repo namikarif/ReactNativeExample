@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "name": "1 Saylı tam orta məktəb",
+    "members": 50
+  },
+  {
+    "id": 2,
+    "name": "2 Saylı tam orta məktəb",
+    "members": 48
+  },
+  {
+    "id": 3,
+    "name": "3 Saylı tam orta məktəb",
+    "members": 32
+  }
+]

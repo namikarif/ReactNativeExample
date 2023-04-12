@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "question": "Kimya üzrə ən yaxşı tələbə?"
+  },
+  {
+    "id": 2,
+    "question": "Nizam intizam üzrə ən yaxşı tələbə?"
+  },
+  {
+    "id": 3,
+    "question": "Fizika üzrə ən yaxşı tələbə?"
+  },
+  {
+    "id": 4,
+    "question": "Riyaziyyat üzrə ən yaxşı tələbə?"
+  },
+  {
+    "id": 5,
+    "question": "Rəsm üzrə ən yaxşı tələbə?"
+  },
+  {
+    "id": 6,
+    "question": "Ən fəal tələbə kimdir?"
+  },
+  {
+    "id": 7,
+    "question": "Ən çox dərsə gec gələn tələbə?"
+  },
+  {
+    "id": 8,
+    "question": "Ədəbiyyat üzrə ən yaxşı tələbə?"
+  },
+  {
+    "id": 9,
+    "question": "Coğrafiya üzrə ən yaxşı tələbə?"
+  },
+  {
+    "id": 10,
+    "question": "İdman üzrə ən yaxşı tələbə?"
+  },
+  {
+    "id": 11,
+    "question": "Əl sənətləri üzrə ən yaxşı tələbə?"
+  },
+  {
+    "id": 12,
+    "question": "Musiqi üzrə ən yaxşı tələbə?"
+  },
+  {
+    "id": 13,
+    "question": "Dans üzrə ən yaxşı tələbə?"
+  },
+  {
+    "id": 14,
+    "question": "Qaçış üzrə ən yaxşı tələbə?"
+  },
+  {
+    "id": 15,
+    "question": "Futbol üzrə ən yaxşı tələbə?"
+  },
+  {
+    "id": 16,
+    "question": "Tens üzrə ən yaxşı tələbə?"
+  },
+  {
+    "id": 17,
+    "question": "Basketbol üzrə ən yaxşı tələbə?"
+  },
+  {
+    "id": 18,
+    "question": "Boy üzrə ən hündür tələbə?"
+  },
+  {
+    "id": 19,
+    "question": "Bialogiya üzrə ən yaxşı tələbə?"
+  },
+  {
+    "id": 20,
+    "question": "İnfotmatika üzrə ən yaxşı tələbə?"
+  }
+]

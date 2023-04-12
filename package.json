@@ -1,0 +1,60 @@
+{
+  "name": "example.co",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "android": "npx react-native run-android",
+    "ios": "npx react-native run-ios",
+    "eject": "react-native eject",
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.13.2",
+    "@react-native-community/cli": "^5.0.1-alpha.2",
+    "@react-navigation/bottom-tabs": "^6.0.9",
+    "@react-navigation/native": "^6.0.6",
+    "@react-navigation/native-stack": "^6.2.5",
+    "axios": "^0.21.1",
+    "create-react-class": "^15.7.0",
+    "error-stack-parser": "^2.0.6",
+    "moment": "^2.29.4",
+    "native-base": "^2.15.2",
+    "react": "16.13.1",
+    "react-native": "^0.63.4",
+    "react-native-asset": "^2.0.1",
+    "react-native-countdown-component": "^2.7.1",
+    "react-native-eject": "^0.1.2",
+    "react-native-elements": "^3.4.2",
+    "react-native-fast-image": "^8.6.3",
+    "react-native-gesture-handler": "^1.10.0",
+    "react-native-loading-spinner-overlay": "^3.0.1",
+    "react-native-reanimated": "^1.13.1",
+    "react-native-safe-area-context": "3.3.2",
+    "react-native-screens": "^2.16.1",
+    "react-native-sqlite-storage": "^6.0.1",
+    "react-native-super-grid": "4.2.0",
+    "react-native-vector-icons": "^9.0.0",
+    "rxjs": "^7.5.6"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/runtime": "^7.8.4",
+    "@react-native-community/eslint-config": "^1.1.0",
+    "babel-jest": "^25.1.0",
+    "eslint": "^6.5.1",
+    "jest": "^25.1.0",
+    "metro-react-native-babel-preset": "^0.59.0",
+    "prettier": "2.2.1",
+    "react-test-renderer": "16.13.1"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts/"
+    ]
+  }
+}
