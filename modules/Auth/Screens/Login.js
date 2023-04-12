@@ -111,8 +111,7 @@ function Login(props) {
 
 
                 sqliteService.insert('USER', userRows, insertUserDate, userDataList.length)
-                    .then(async res => await utilService.storageSet('firstSetUsers', 'yes'))
-                    .catch(error => console.log('insert error : ', error));
+                    .then(async res => await utilService.storageSet('firstSetUsers', 'yes'));
             }
         }
 

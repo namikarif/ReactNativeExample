@@ -61,7 +61,6 @@ function Register(props) {
                     }).catch(() => handleError('Something went wrong!'));
             }
         }).catch(error => {
-            console.log('error ', error);
             handleError('Something went wrong!')
         });
     };

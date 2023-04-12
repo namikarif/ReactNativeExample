@@ -103,11 +103,7 @@ export class Questions extends Component {
 
                 this.setState({leftSeconds: seconds});
 
-                sqliteService.update('USER', ['coins'], [userDetail.coins], {id: userDetail.id})
-                    .then(res => {
-                        console.log('user insert res : ', res);
-                    }).catch(error => {
-                    console.log('user insert error : ', error);
+                sqliteService.update('USER', ['coins'], [userDetail.coins], {id: userDetail.id});
                 })
             }
 
