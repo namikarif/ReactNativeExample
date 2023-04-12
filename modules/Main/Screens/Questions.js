@@ -103,8 +103,7 @@ export class Questions extends Component {
 
                 this.setState({leftSeconds: seconds});
 
-                sqliteService.update('USER', ['coins'], [userDetail.coins], {id: userDetail.id});
-                })
+                await sqliteService.update('USER', ['coins'], [userDetail.coins], {id: userDetail.id});
             }
 
             this.setState({
