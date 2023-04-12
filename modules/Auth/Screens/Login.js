@@ -103,8 +103,8 @@ function Login(props) {
         fetchData();
     }, []);
 
-    const [email, setEmail] = useState('namig.abdukerimov@gmail.com');
-    const [password, setPassword] = useState('1234');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     let passwordInput = null;
 
     const login = async () => {
