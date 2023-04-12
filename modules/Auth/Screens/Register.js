@@ -20,13 +20,13 @@ function Register(props) {
     const [name, setName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [schoolId, setSchoolId] = useState(null);
-    const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [step, setStep] = useState('name');
 
     const register = async () => {
-        sqliteService.select('USER', '*', {email: email}).then(response => {
+        const whereCondition = "email = '" + email + "'";
+        sqliteService.select('USER', '*', whereCondition).then(response => {
             if (response && response[0]) {
                 handleError('This email is being used!')
             } else {
@@ -60,7 +60,10 @@ function Register(props) {
                         props.navigation.navigate('MainTabs');
                     }).catch(() => handleError('Something went wrong!'));
             }
-        }).catch(() => handleError('Something went wrong!'));
+        }).catch(error => {
+            console.log('error ', error);
+            handleError('Something went wrong!')
+        });
     };
 
     const handleError = (message) => {
@@ -93,6 +96,7 @@ function Register(props) {
                                             onChangeText={value => setName(value)}
                         />
                         <Button style={[buttonStyles.btn, buttonStyles.success, {width: width - 24}]}
+                                disabled={name === ''}
                                 onPress={() => setStep('phone_number')}>
                             <Text>Next</Text>
                         </Button>
@@ -107,11 +111,12 @@ function Register(props) {
                                             staticLabel
                                             hintTextColor={'#aaa'}
                                             returnKeyType="next"
-                                            key="name"
+                                            key="phone_number"
                                             leftComponent={<FontAwesome5 style={{color: '#8162fd'}} name="phone"/>}
                                             onChangeText={value => setPhoneNumber(value)}
                         />
                         <Button style={[buttonStyles.btn, buttonStyles.success, {width: width - 24}]}
+                                disabled={phoneNumber === ''}
                                 onPress={() => setStep('school')}>
                             <Text>Next</Text>
                         </Button>
@@ -138,6 +143,7 @@ function Register(props) {
                                   keyExractor={(item) => item.id.toString()}
                         />
                         <Button style={[buttonStyles.btn, buttonStyles.success, {width: width - 24}]}
+                                disabled={schoolId === null}
                                 onPress={() => setStep('email')}>
                             <Text>Next</Text>
                         </Button>
@@ -152,11 +158,12 @@ function Register(props) {
                                             staticLabel
                                             hintTextColor={'#aaa'}
                                             returnKeyType="next"
-                                            key="name"
+                                            key="email"
                                             leftComponent={<FontAwesome5 style={{color: '#8162fd'}} name="user"/>}
                                             onChangeText={value => setEmail(value)}
                         />
                         <Button style={[buttonStyles.btn, buttonStyles.success, {width: width - 24}]}
+                                disabled={email === ''}
                                 onPress={() => setStep('password')}>
                             <Text>Next</Text>
                         </Button>
@@ -165,9 +172,9 @@ function Register(props) {
             case 'password':
                 return (
                     <View>
-                        <FloatingLabelInput label={'Email'}
+                        <FloatingLabelInput label={'Password'}
                                             customContainerStyles={{height: 40}}
-                                            value={email}
+                                            value={password}
                                             staticLabel
                                             hintTextColor={'#aaa'}
                                             isPassword={true}
@@ -183,6 +190,7 @@ function Register(props) {
                                             onChangeText={value => setPassword(value)}
                         />
                         <Button style={[buttonStyles.btn, buttonStyles.success, {width: width - 24}]}
+                                disabled={password === ''}
                                 onPress={() => register()}>
                             <Text>Register</Text>
                         </Button>

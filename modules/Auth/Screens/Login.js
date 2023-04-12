@@ -69,7 +69,6 @@ function Login(props) {
 
             const firstSetUsers = await utilService.storageGet('firstSetUsers');
 
-           await utilService.storageRemove('countdown');
 
             if (firstSetUsers !== 'yes') {
                 const userDataList: Array<any> = require('../../Shared/data/users.json');
@@ -109,7 +108,7 @@ function Login(props) {
 
     const login = async () => {
         if (email && password) {
-            const whereConditions = "email = '" + email + "' AND password = '" + password + "'";
+            const whereConditions = "email = '" + email.toLowerCase() + "' AND password = '" + password + "'";
             sqliteService.select('USER', '*', whereConditions)
                 .then(async response => {
                     await utilService.storageSetObject('userDetail', response[0]);

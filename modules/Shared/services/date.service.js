@@ -1,7 +1,7 @@
 import moment from 'moment';
 
-export const addMinute = (date, minute) => {
-   return moment(date).add(minute, 'minutes').local(true).format('HH:mm:ss');
+export const addMinuteDate = (date, minute) => {
+   return moment(date).add(minute, 'minutes').local(true).format('YYYY-MM-DD HH:mm:ss');
 }
 
 export const convertDateAndTime = (date: any, dateFormat) => {
