@@ -7,7 +7,7 @@ export class SqliteService {
         this.sqlite.DEBUG(false);
         this.sqlite.enablePromise(true);
         this.sqlite.openDatabase({
-            name: "kalemDB",
+            name: "MStockDB",
             location: "default"
         }).then((db) => {
             this.dbInstance = db;
