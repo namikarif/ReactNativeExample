@@ -89,6 +89,18 @@ const toIntExt = (value) => {
     }
 }
 
+const getRandomArray = (array, count) => {
+    let result = new Array(count),
+        len = array.length,
+        taken = new Array(len);
+    while (count--) {
+        let x = Math.floor(Math.random() * len);
+        result[count] = array[x in taken ? taken[x] : x];
+        taken[x] = --len in taken ? taken[len] : len;
+    }
+    return result;
+}
+
 export function convertToFloat(value) {
     try {
         if (value === '') {
@@ -200,6 +212,7 @@ const replaceAll = (str, find, replace) => {
 }
 
 export default {
+    getRandomArray,
     replaceAll,
     toIntExt,
     storageSet,

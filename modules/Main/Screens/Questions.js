@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Card, CardItem, Container, Text} from 'native-base';
 import {Dimensions, StyleSheet, View} from 'react-native';
 import style from '../../../styles/styles';
@@ -17,71 +17,64 @@ const sqliteService = new SqliteService();
 
 const {width, height} = Dimensions.get('window');
 
-export class Questions extends Component {
+function Questions(props) {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            questions: [],
-            answers: [],
-            index: 0,
-            userDetail: {},
-            selectedAnswer: {},
-            leftSeconds: 0,
-            countdown: {}
+
+    const [questions, setQuestions] = useState([]);
+    const [answers, setAnswers] = useState([]);
+    const [index, setIndex] = useState(0);
+    const [leftSeconds, setLeftSeconds] = useState(0);
+    const [userDetail, setUserDetail] = useState({});
+    const [selectedAnswer, setSelectedAnswer] = useState({});
+    const [countdown, setCountdown] = useState({});
+
+    useEffect(() => {
+
+        async function fetchData() {
+            const _userDetail: UserDto = await utilService.storageGetObject('userDetail');
+            const _countdown = await sqliteService.select('COUNTDOWN', '*', 'user_id = ' + _userDetail.id);
+            let _leftSeconds = 0;
+
+            if (_countdown && _countdown[0]) {
+                _leftSeconds = getSeconds(_countdown[0].time);
+            }
+
+            setUserDetail(_userDetail);
+            setLeftSeconds(_leftSeconds);
+
+            await getQuestions(_userDetail);
         }
+
+        fetchData();
+
+    }, []);
+
+    const getQuestions = async (_userDetail) => {
+        const questionsData = require('../../Shared/data/questions.json');
+        const _questions = utilService.getRandomArray(questionsData, 5);
+        setQuestions(_questions);
+        await getAnswers(_userDetail);
     }
 
-    async componentDidMount() {
-        const userDetail: UserDto = await utilService.storageGetObject('userDetail');
-        const countdown = await sqliteService.select('COUNTDOWN', '*', 'user_id = ' + userDetail.id);
-        let leftSeconds = 0;
+    const getAnswers = async (_userDetail) => {
+        const whereConditions = "school_id = " + _userDetail.school_id + " AND id != " + _userDetail.id;
+        console.log('whereConditions : ', whereConditions);
+        const _answers = await sqliteService.select('USER', '*', whereConditions, 'RANDOM() LIMIT 4');
 
-        if (countdown && countdown[0]) {
-            leftSeconds = getSeconds(countdown[0].time);
-        }
-
-        this.setState({
-            userDetail: userDetail,
-            leftSeconds: leftSeconds,
-        }, async () => await this.getQuestions());
+        console.log('_answers : ', _answers);
+        return setAnswers(_answers);
     }
 
-    async getQuestions() {
-        const questions = require('../../Shared/data/questions.json');
-        const _questions = this.getRandomArray(questions, 5);
-        this.setState({questions: _questions}, async () => await this.getAnswers());
-    }
+    const confirmQuestion = async () => {
+        if (selectedAnswer.id) {
+            const questionId = questions[index].id;
+            const userId = selectedAnswer.id;
 
-    getRandomArray(array, count) {
-        let result = new Array(count),
-            len = array.length,
-            taken = new Array(len);
-        while (count--) {
-            let x = Math.floor(Math.random() * len);
-            result[count] = array[x in taken ? taken[x] : x];
-            taken[x] = --len in taken ? taken[len] : len;
-        }
-        return result;
-    }
+            const _index = index + 1;
 
-    async getAnswers() {
-        const whereConditions = "school_id = " + this.state.userDetail.school_id + " AND id != " + this.state.userDetail.id;
-        const answers = await sqliteService.select('USER', '*', whereConditions, 'RANDOM() LIMIT 4');
+            const _userDetail = userDetail;
 
-        this.setState({answers: answers});
-    }
-
-    async confirmQuestion() {
-        if (this.state.selectedAnswer.id) {
-            const questionId = this.state.questions[this.state.index].id;
-            const userId = this.state.selectedAnswer.id;
-
-            const index = this.state.index + 1;
-
-            const userDetail: UserDto = this.state.userDetail;
-
-            userDetail.coins += 5;
+            _userDetail.coins += 5;
 
             const answerRows = ['user_id', 'question_id'];
 
@@ -89,7 +82,7 @@ export class Questions extends Component {
 
             await sqliteService.insert('ANSWERS', answerRows, answerValues);
 
-            if (index === 5) {
+            if (_index === 5) {
                 const now = new Date();
 
                 const dateTime = addMinuteDate(now, 45);
@@ -97,125 +90,125 @@ export class Questions extends Component {
                 await sqliteService.insert('COUNTDOWN', ['user_id', 'time'], [userDetail.id, dateTime], 1);
 
 
-                await utilService.storageSetObject('userDetail', userDetail);
+                await utilService.storageSetObject('userDetail', _userDetail);
 
                 const seconds = getSeconds(dateTime);
 
-                this.setState({leftSeconds: seconds});
+                setLeftSeconds(seconds);
 
-                await sqliteService.update('USER', ['coins'], [userDetail.coins], {id: userDetail.id});
+                await sqliteService.update('USER', ['coins'], [_userDetail.coins], {id: userDetail.id});
             }
 
-            this.setState({
-                index: index,
-                selectedAnswer: {},
-                answers: [],
-                userDetail: userDetail
-            }, async () => await this.getAnswers());
+            setIndex(_index);
+            setSelectedAnswer({});
+            setAnswers([]);
+            setUserDetail(_userDetail);
+
+            await getAnswers(_userDetail);
         }
     }
 
-    async skipQuestion() {
-        this.setState({
-            index: this.state.index + 1,
-            selectedAnswer: {},
-            answers: []
-        }, async () => await this.getAnswers());
+    const skipQuestion = async () => {
+
+        setIndex(index + 1);
+        setSelectedAnswer({});
+        setAnswers([]);
+
+        await getAnswers(userDetail);
     }
 
-    async countdownFinished() {
-        const userDetail: UserDto = this.state.userDetail;
-        const countdown = this.state.countdown;
+    const countdownFinished = async () => {
         const whereConditions = 'user_id = ' + userDetail.id + ' AND id = ' + countdown.id;
         await sqliteService.delete('COUNTDOWN', whereConditions);
-        this.setState({
-            leftSeconds: 0,
-            index: 0
-        }, async () => await this.getQuestions());
+
+        setLeftSeconds(0);
+        setIndex(0);
+
+        await getQuestions(userDetail)
     }
 
-    render() {
-        return (
-            <Container style={{backgroundColor: '#ffffff'}}>
-                <Header backgroundColor={colors.BLUE.kl}
-                        containerStyle={style.headerStyle}
-                        centerComponent={
-                            <Text style={style.headerTitleStyle}>Questions</Text>
-                        }
-                />
-
-                <View style={{marginTop: 10}}>
-                    {
-                        (this.state.index < 5 && this.state.questions[this.state.index] && this.state.leftSeconds === 0) && (
-                            <Card style={cardStyle.card}>
-                                <CardItem style={cardStyle.cardHeader}>
-                                    <View>
-                                        <Text
-                                            style={cardStyle.cardHeader.title}>{this.state.questions[this.state.index].question}</Text>
-                                    </View>
-                                </CardItem>
-                                <CardItem style={{borderBottomLeftRadius: 6, borderBottomRightRadius: 6}}>
-                                    <View style={customStyle.container}>
-                                        {
-                                            this.state.answers.map(answer => {
-                                                return (
-                                                    <View style={customStyle.item}>
-                                                        <Button onPress={() => this.setState({selectedAnswer: answer})}
-                                                                style={[buttonStyles.info, buttonStyles.btn, {
-                                                                    width: '100%',
-                                                                    backgroundColor: answer.id === this.state.selectedAnswer.id ? colors.main : '#77c3ec'
-                                                                }]}>
-                                                            <Text>{answer.name}</Text>
-                                                        </Button>
-                                                    </View>
-                                                )
-                                            })
-                                        }
-                                    </View>
-                                </CardItem>
-
-                                <CardItem style={{borderBottomLeftRadius: 6, borderBottomRightRadius: 6}}>
-                                    <View style={customStyle.container}>
-                                        <View style={customStyle.item}>
-                                            <Button onPress={() => this.skipQuestion()}
-                                                    style={[buttonStyles.warning, buttonStyles.btn, {width: '100%'}]}>
-                                                <Text>Skip</Text>
-                                            </Button>
-                                        </View>
-                                        <View style={customStyle.item}>
-                                            <Button onPress={() => this.confirmQuestion()}
-                                                    style={[buttonStyles.success, buttonStyles.btn, {width: '100%'}]}>
-                                                <Text>Confirm</Text>
-                                            </Button>
-                                        </View>
-                                    </View>
-                                </CardItem>
-                            </Card>
-                        )
+    return (
+        <Container style={{backgroundColor: '#ffffff'}}>
+            <Header backgroundColor={colors.BLUE.kl}
+                    containerStyle={style.headerStyle}
+                    centerComponent={
+                        <Text style={style.headerTitleStyle}>Questions</Text>
                     }
-                    {
-                        (this.state.leftSeconds > 0) && (
-                            <View style={{paddingVertical: 10, paddingHorizontal: 12}}>
+            />
 
-                                <Text style={{
-                                    fontSize: 18,
-                                    color: colors.main,
-                                    marginBottom: 20
-                                }}>{this.state.userDetail.name} səs vermədə iştirak etdiyiniz üçün təşəkkürlər. Bir sonraki
-                                    səs vermə üçün gözləyin</Text>
+            <View style={{marginTop: 10}}>
+                {
+                    (index < 5 && questions[index] && leftSeconds < 1) && (
+                        <Card style={cardStyle.card}>
+                            <CardItem style={cardStyle.cardHeader}>
+                                <View>
+                                    <Text
+                                        style={cardStyle.cardHeader.title}>{questions[index].question}</Text>
+                                </View>
+                            </CardItem>
+                            <CardItem style={{borderBottomLeftRadius: 6, borderBottomRightRadius: 6}}>
+                                <View style={customStyle.container}>
+                                    {
+                                        answers.map(answer => {
+                                            return (
+                                                <View style={customStyle.item}>
+                                                    <Button onPress={() => setSelectedAnswer(answer)}
+                                                            style={[buttonStyles.info, buttonStyles.btn, {
+                                                                width: '100%',
+                                                                backgroundColor: answer.id === selectedAnswer.id ? colors.main : '#77c3ec'
+                                                            }]}>
+                                                        <Text>{answer.name}</Text>
+                                                    </Button>
+                                                </View>
+                                            )
+                                        })
+                                    }
+                                </View>
+                            </CardItem>
 
-                                <CountDown until={this.state.leftSeconds}
-                                           onFinish={() => this.countdownFinished()}
-                                           size={20}
-                                />
-                            </View>
-                        )
-                    }
-                </View>
-            </Container>
-        );
-    }
+                            <CardItem style={{borderBottomLeftRadius: 6, borderBottomRightRadius: 6}}>
+                                <View style={customStyle.container}>
+                                    <View style={customStyle.item}>
+                                        <Button onPress={() => skipQuestion()}
+                                                style={[buttonStyles.warning, buttonStyles.btn, {width: '100%'}]}>
+                                            <Text>Skip</Text>
+                                        </Button>
+                                    </View>
+                                    <View style={customStyle.item}>
+                                        <Button onPress={() => confirmQuestion()}
+                                                style={[buttonStyles.success, buttonStyles.btn, {width: '100%'}]}>
+                                            <Text>Confirm</Text>
+                                        </Button>
+                                    </View>
+                                </View>
+                            </CardItem>
+                        </Card>
+                    )
+                }
+                {
+                    (leftSeconds > 0) && (
+                        <View style={{paddingVertical: 10, paddingHorizontal: 12}}>
+
+                            <Text style={{
+                                fontSize: 18,
+                                color: colors.main,
+                                marginBottom: 20
+                            }}>{userDetail.name} səs vermədə iştirak etdiyiniz üçün təşəkkürlər. Bir sonraki
+                                səs vermə üçün gözləyin</Text>
+
+                            <CountDown until={leftSeconds}
+                                       onFinish={() => countdownFinished()}
+                                       size={20}
+                            />
+                        </View>
+                    )
+                }
+            </View>
+        </Container>
+    );
 }
+
+export default Questions;
 
 const customStyle = new StyleSheet.create({
     modalView: {

@@ -4,10 +4,10 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Image} from 'react-native';
 import Login from '../Auth/Screens/Login';
-import {Questions} from '../Main/Screens/Questions';
+import Questions from '../Main/Screens/Questions';
 import Register from "../Auth/Screens/Register";
 import {colors} from "../../constants/colors";
-import {ProfilePage} from "../Main/Screens/Profile";
+import ProfilePage from "../Main/Screens/Profile";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();

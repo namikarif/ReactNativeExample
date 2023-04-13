@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Button, Container, Form, Text, Title, View} from 'native-base';
+import React, {useState, useEffect} from 'react';
+import {Container, Form, Text, Title, View} from 'native-base';
 import {Dimensions, StyleSheet} from 'react-native';
 import style from '../../../styles/styles';
 import utilService from '../../Shared/services/util.service';
@@ -7,99 +7,94 @@ import {Header} from "react-native-elements";
 import {colors} from "../../../constants/colors";
 import FastImage from "react-native-fast-image";
 import {FloatingLabelInput} from "../../../react-native-floating-label-input";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import imageSource from "../../../assets/avatar.png";
 
 
 const {width, height} = Dimensions.get('window');
 
-export class ProfilePage extends Component {
+function ProfilePage(props) {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            showCamera: false,
-            loadingShow: false,
-            loadingShowText: '',
-            userProfile: {
-                name: ''
-            }
-        };
-    }
+    const [userProfile, setUserProfile] = useState({name: ''});
 
-    async componentDidMount() {
-        const userProfile = await utilService.storageGetObject('userDetail');
-        this.setState({userProfile: userProfile});
-    }
+    const imageSource = require('../../../assets/avatar.png');
+    const coinImageSource = require('../../../assets/coin.png');
 
-    render() {
-        const imageSource = require('../../../assets/avatar.png');
-        const coinImageSource = require('../../../assets/coin.png');
-        return (
-            <Container style={{backgroundColor: '#ffffff'}}>
+    useEffect(() => {
 
-                <Header backgroundColor={colors.BLUE.kl}
-                        containerStyle={style.headerStyle}
-                        centerComponent={<Title>{this.state.userProfile.name}</Title>}
-                />
+        async function fetchData() {
+            const _userProfile = await utilService.storageGetObject('userDetail');
+            setUserProfile(_userProfile);
+        }
 
-                <View>
-                    <View style={[style.boxShadow, customStyle.body]}>
-                        <View style={customStyle.imageView}>
-                            <View key="profile-image"
-                                  style={customStyle.imageCover}>
-                                <FastImage source={imageSource}
-                                           style={{width: 120, height: 120, borderRadius: 60}}/>
-                            </View>
+        fetchData();
+
+    }, []);
+
+    return (
+        <Container style={{backgroundColor: '#ffffff'}}>
+
+            <Header backgroundColor={colors.BLUE.kl}
+                    containerStyle={style.headerStyle}
+                    centerComponent={<Title>{userProfile.name}</Title>}
+            />
+
+            <View>
+                <View style={[style.boxShadow, customStyle.body]}>
+                    <View style={customStyle.imageView}>
+                        <View key="profile-image"
+                              style={customStyle.imageCover}>
+                            <FastImage source={imageSource}
+                                       style={{width: 120, height: 120, borderRadius: 60}}/>
                         </View>
-                        <Form style={[customStyle.form]}>
-                            <FloatingLabelInput label={'Name'}
-                                                customContainerStyles={{height: 40}}
-                                                value={this.state.userProfile.name}
-                                                staticLabel
-                                                editable={false}
-                                                hintTextColor={'#aaa'}
-                                                key="name"
-                                                leftComponent={<FontAwesome5 style={{color: '#8162fd'}} name="user"/>}
-                            />
-                            <FloatingLabelInput label={'Phone Number'}
-                                                customContainerStyles={{height: 40}}
-                                                value={this.state.userProfile.phone_number}
-                                                staticLabel
-                                                hintTextColor={'#aaa'}
-                                                key="email"
-                                                editable={false}
-                                                leftComponent={<FontAwesome5 style={{color: '#8162fd'}}
-                                                                             name="envelope"/>}
-                            />
-                            <FloatingLabelInput label={'Email'}
-                                                customContainerStyles={{height: 40}}
-                                                value={this.state.userProfile.email}
-                                                staticLabel
-                                                hintTextColor={'#aaa'}
-                                                key="email"
-                                                editable={false}
-                                                leftComponent={<FontAwesome5 style={{color: '#8162fd'}}
-                                                                             name="envelope"/>}
-                            />
-                        </Form>
-                        <View>
-                            <Text style={customStyle.coin}>{this.state.userProfile.coins}</Text>
-                            <View style={customStyle.coinImageView}>
-                                <View key="coin-image"
-                                      style={customStyle.coinImageCover}>
-                                    <FastImage source={coinImageSource}
-                                               style={{width: 120, height: 120, borderRadius: 60}}/>
-                                </View>
+                    </View>
+                    <Form style={[customStyle.form]}>
+                        <FloatingLabelInput label={'Name'}
+                                            customContainerStyles={{height: 40}}
+                                            value={userProfile.name}
+                                            staticLabel
+                                            editable={false}
+                                            hintTextColor={'#aaa'}
+                                            key="name"
+                                            leftComponent={<FontAwesome5 style={{color: '#8162fd'}} name="user"/>}
+                        />
+                        <FloatingLabelInput label={'Phone Number'}
+                                            customContainerStyles={{height: 40}}
+                                            value={userProfile.phone_number}
+                                            staticLabel
+                                            hintTextColor={'#aaa'}
+                                            key="email"
+                                            editable={false}
+                                            leftComponent={<FontAwesome5 style={{color: '#8162fd'}}
+                                                                         name="envelope"/>}
+                        />
+                        <FloatingLabelInput label={'Email'}
+                                            customContainerStyles={{height: 40}}
+                                            value={userProfile.email}
+                                            staticLabel
+                                            hintTextColor={'#aaa'}
+                                            key="email"
+                                            editable={false}
+                                            leftComponent={<FontAwesome5 style={{color: '#8162fd'}}
+                                                                         name="envelope"/>}
+                        />
+                    </Form>
+                    <View>
+                        <Text style={customStyle.coin}>{userProfile.coins}</Text>
+                        <View style={customStyle.coinImageView}>
+                            <View key="coin-image"
+                                  style={customStyle.coinImageCover}>
+                                <FastImage source={coinImageSource}
+                                           style={{width: 120, height: 120, borderRadius: 60}}/>
                             </View>
                         </View>
                     </View>
                 </View>
-            </Container>
-        );
-    }
+            </View>
+        </Container>
+    );
 }
+
+export default ProfilePage;
 
 const customStyle = new StyleSheet.create({
     body: {
